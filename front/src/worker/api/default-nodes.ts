@@ -11,8 +11,8 @@ export const DEFAULT_NODES: INodes = {
     default: 'http://localhost:8545',
     livenet: 'http://localhost:8545',
     livenet_private: 'http://localhost:7545',
-    rinkeby: 'https://rinkeby.infura.io',
-    rinkeby_private: 'https://sidechain-dev.sonm.com',
-    testrpc: 'https://proxy.test.sonm.com:8545',
-    testrpc_private: 'https://proxy.test.sonm.com:8546',
+    rinkeby: 'http//localhost:8545',
+    rinkeby_private: 'http://localhost:7545',
+    testrpc: 'http://localhost:8545',
+    testrpc_private: 'http://localhost:7545',
 };

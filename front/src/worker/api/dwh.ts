@@ -24,9 +24,12 @@ const NETWORK_OUTBOUND = 0x2;
 const NETWORK_INCOMING = 0x4;
 
 const DEFAULT_NODES: t.INodes = {
+    // livenet: 'https://dwh.livenet.sonm.com:15022/DWHServer/',
+    // rinkeby: 'https://dwh-testnet.sonm.com:15022/DWHServer/',
+    // testrpc: 'https://proxy.test.sonm.com:15123/DWHServer/',
     livenet: 'http://localhost:15022',
-    rinkeby: 'https://dwh-testnet.sonm.com:15022/DWHServer/',
-    testrpc: 'https://proxy.test.sonm.com:15123/DWHServer/',
+    rinkeby: 'http://localhost:15022',
+    testrpc: 'http://localhost:15022',
 };
 
 const MB_SIZE = 1000 * 1000;
