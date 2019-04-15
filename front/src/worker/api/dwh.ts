@@ -27,9 +27,9 @@ const DEFAULT_NODES: t.INodes = {
     // livenet: 'https://dwh.livenet.sonm.com:15022/DWHServer/',
     // rinkeby: 'https://dwh-testnet.sonm.com:15022/DWHServer/',
     // testrpc: 'https://proxy.test.sonm.com:15123/DWHServer/',
-    livenet: 'http://localhost:15022/',
-    rinkeby: 'http://localhost:15022/',
-    testrpc: 'http://localhost:15022/',
+    livenet: 'http://localhost:15022/DWHServer',
+    rinkeby: 'http://localhost:15022/DWHServer',
+    testrpc: 'http://localhost:15022/DWHServer',
 };
 
 const MB_SIZE = 1000 * 1000;
