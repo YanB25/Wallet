@@ -100,7 +100,7 @@
         "react": "^16.4.1",
         "react-addons-transition-group": "^15.6.2",
         "react-dom": "^16.1.0",
-        "sonm-api": "git+https://github.com/sonm-io/blockchain-api-js.git#v2.0.20",
+        "sonm-api": "git+https://github.com/YanB25/blockchain-api-js.git",
         "tcomb": "3.2.27",
         "universal-router": "^4.3.0"
     },
