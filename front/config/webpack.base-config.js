@@ -10,6 +10,8 @@ const WebpackMonitor = require('webpack-monitor');
 
 const { getFullPath, readJson, getPackageJson } = require('./utils');
 
+const path = require('path');
+
 const buildType = process.env.BUILD_TYPE || '';
 const isDev = process.env.NODE_ENV !== 'production';
 const needsAnalyze = process.env.WEBPACK_ANALYZE || process.env.WEBPACK_STATS;
@@ -28,6 +30,13 @@ module.exports = {
             buildType === 'web'
                 ? getFullPath('../docs')
                 : getFullPath('../dist'),
+    },
+
+    devServer: {
+        // disableHostCheck: true,
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 8888,
     },
 
     resolve: {

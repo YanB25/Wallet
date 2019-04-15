@@ -56,7 +56,8 @@ npm i
 #### Run:
 
 ```bash
-npm run webpack # run app in dev mode
+npm run webpack # run app in dev mode and not use a server
+npm run dev # run app in dev mode and open server
 ```
 
 #### Build:
