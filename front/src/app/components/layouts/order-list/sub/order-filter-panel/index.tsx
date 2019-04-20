@@ -50,7 +50,12 @@ export class OrderFilterPanel extends React.PureComponent<
 
     public render() {
         let p = this.props;
-        var dataValue = this.state.dataValue;
+
+        var dataValue = '';
+        if (this.state.dataValue) {
+            dataValue = this.state.dataValue;
+        }
+
         return (
             <div className={cn('order-filter-panel', p.className)}>
                 {/*<ToggleButtonGroup*/}
