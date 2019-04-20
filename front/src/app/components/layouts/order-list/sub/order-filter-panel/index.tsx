@@ -52,7 +52,7 @@ export class OrderFilterPanel extends React.PureComponent<
         let p = this.props;
 
         var dataValue = '';
-        if (this.state.dataValue) {
+        if (this.state && this.state.dataValue) {
             dataValue = this.state.dataValue;
         }
 
