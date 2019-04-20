@@ -44,7 +44,10 @@ export class OrderFilterPanel extends React.PureComponent<
 
     public render() {
         const p = this.props;
-
+        testClick:function(event){
+            alert(event);
+        }
+        
         return (
             <div className={cn('order-filter-panel', p.className)}>
                 {/*<ToggleButtonGroup*/}
@@ -279,6 +282,14 @@ export class OrderFilterPanel extends React.PureComponent<
                         color="violet"
                     >
                         RESET FILTERS
+                    </Button>
+
+                    <Button
+                        onClick={this.testClick}
+                        className="test-button"
+                        color="blue"
+                    >
+                        TEST
                     </Button>
                 </div>
             </div>
