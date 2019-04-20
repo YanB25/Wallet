@@ -25,6 +25,10 @@ export class OrderFilterPanel extends React.PureComponent<
         this.props.onUpdateFilter(key, value);
     };
 
+    protected testClick = (event: any) => {
+        alert(event);
+    };
+
     private static orderTypeValues = ['Sell', 'Buy'];
 
     // private static orderOwnerTypeValues = [
@@ -44,10 +48,7 @@ export class OrderFilterPanel extends React.PureComponent<
 
     public render() {
         const p = this.props;
-        testClick:function(event){
-            alert(event);
-        }
-        
+
         return (
             <div className={cn('order-filter-panel', p.className)}>
                 {/*<ToggleButtonGroup*/}
