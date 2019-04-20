@@ -14,7 +14,7 @@ import ToggleGroup from 'app/components/common/toggle-group/index';
 
 export class OrderFilterPanel extends React.PureComponent<
     IOrderFilterPanelProps,
-    never
+    any
 > {
     constructor(props: IOrderFilterPanelProps) {
         super(props);
@@ -24,10 +24,6 @@ export class OrderFilterPanel extends React.PureComponent<
         const key = params.name as keyof IOrderFilter;
         const value: IOrderFilter[keyof IOrderFilter] = params.value;
         this.props.onUpdateFilter(key, value);
-    };
-
-    protected testClick = (event: any) => {
-        alert(event);
     };
 
     private static orderTypeValues = ['Sell', 'Buy'];
@@ -46,9 +42,15 @@ export class OrderFilterPanel extends React.PureComponent<
                 .filter(Boolean).length > 0
         );
     }
+    protected handleChanged = (event: any) => {
+        this.setState({
+            dataValue: event.target.value,
+        });
+    };
 
     public render() {
         let p = this.props;
+        var dataValue = this.state.dataValue;
         return (
             <div className={cn('order-filter-panel', p.className)}>
                 {/*<ToggleButtonGroup*/}
@@ -285,7 +287,13 @@ export class OrderFilterPanel extends React.PureComponent<
                         RESET FILTERS
                     </Button>
 
-                    <Test> </Test>
+                    <Test
+                        data={dataValue}
+                        className="test"
+                        updateStateProp={this.handleChanged}
+                    >
+                        {' '}
+                    </Test>
                 </div>
             </div>
         );
