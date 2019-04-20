@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as cn from 'classnames';
 import { Checkbox } from 'app/components/common/checkbox';
 import { Input } from 'app/components/common/input';
+import { Test } from 'app/components/common/test';
 import { Button } from 'app/components/common/button';
 import { IOrderFilterPanelProps } from './types';
 import { IOrderFilter } from 'app/stores/order-filter';
@@ -47,8 +48,7 @@ export class OrderFilterPanel extends React.PureComponent<
     }
 
     public render() {
-        const p = this.props;
-
+        let p = this.props;
         return (
             <div className={cn('order-filter-panel', p.className)}>
                 {/*<ToggleButtonGroup*/}
@@ -285,13 +285,7 @@ export class OrderFilterPanel extends React.PureComponent<
                         RESET FILTERS
                     </Button>
 
-                    <Button
-                        onClick={this.testClick}
-                        className="test-button"
-                        color="blue"
-                    >
-                        TEST
-                    </Button>
+                    <Test> </Test>
                 </div>
             </div>
         );
