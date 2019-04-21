@@ -19,6 +19,7 @@ export class Test extends React.Component<ITestProps, any> {
     public render() {
         return (
             <div>
+                <span> name</span>
                 <input
                     type="text"
                     className={this.props.className}
@@ -26,7 +27,7 @@ export class Test extends React.Component<ITestProps, any> {
                     name="nameTest"
                     onChange={this.props.updateStateProp}
                 />
-                <span> name</span>
+                <span> content</span>
                 <input
                     type="text"
                     className={this.props.className}
@@ -34,7 +35,7 @@ export class Test extends React.Component<ITestProps, any> {
                     name="contentTest"
                     onChange={this.props.updateStateProp}
                 />
-                <span> content</span>
+
                 <button onClick={this.testClick}> Test</button>
             </div>
         );

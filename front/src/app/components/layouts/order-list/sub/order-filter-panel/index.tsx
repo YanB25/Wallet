@@ -71,7 +71,7 @@ export class OrderFilterPanel extends React.PureComponent<
         if (this.state && this.state.nameTest) {
             nameTest = this.state.nameTest;
         }
-        if (this.state && this.state.content) {
+        if (this.state && this.state.contentTest) {
             contentTest = this.state.contentTest;
         }
 
