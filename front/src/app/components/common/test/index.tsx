@@ -16,6 +16,10 @@ export class Test extends React.Component<ITestProps, any> {
         console.log(o);
     };
 
+    protected consoleClick = (event: any) => {
+        console.log('ok');
+    };
+
     public render() {
         return (
             <div>
@@ -36,7 +40,7 @@ export class Test extends React.Component<ITestProps, any> {
                     onChange={this.props.updateStateProp}
                 />
 
-                <button onClick={this.testClick}> Test</button>
+                <button onClick={this.consoleClick}> Test</button>
             </div>
         );
     }
