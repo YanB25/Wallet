@@ -1,14 +1,19 @@
 import * as React from 'react';
 
 export interface ITestProps {
-    data?: any;
+    nameTest?: string;
+    contentTest?: string;
     className?: string;
     updateStateProp?: any;
 }
 
 export class Test extends React.Component<ITestProps, any> {
     protected testClick = (event: any) => {
-        alert(this.props.data);
+        let o = {
+            name: this.props.nameTest,
+            content: this.props.contentTest,
+        };
+        alert(o);
     };
 
     public render() {
@@ -17,14 +22,16 @@ export class Test extends React.Component<ITestProps, any> {
                 <input
                     type="text"
                     className={this.props.className}
-                    value={this.props.data.name}
+                    value={this.props.nameTest}
+                    name="name"
                     onChange={this.props.updateStateProp}
                 />
                 <span> name</span>
                 <input
                     type="text"
                     className={this.props.className}
-                    value={this.props.data.content}
+                    value={this.props.contentTest}
+                    name="content"
                     onChange={this.props.updateStateProp}
                 />
                 <span> content</span>

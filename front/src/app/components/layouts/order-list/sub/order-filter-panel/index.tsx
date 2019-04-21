@@ -18,6 +18,10 @@ export class OrderFilterPanel extends React.PureComponent<
 > {
     constructor(props: IOrderFilterPanelProps) {
         super(props);
+        this.state = {
+            nameTest: '',
+            contentTest: '',
+        };
     }
 
     protected handleChangeInput = (params: IChangeParams<boolean | string>) => {
@@ -43,17 +47,32 @@ export class OrderFilterPanel extends React.PureComponent<
         );
     }
     protected handleChanged = (event: any) => {
-        this.setState({
-            dataValue: event.target.value,
-        });
+        switch (event.target.name) {
+            case 'nameTest':
+                this.setState({
+                    nameTest: event.target.value,
+                });
+                break;
+            case 'contentTest':
+                this.setState({
+                    contentTest: event.target.value,
+                });
+                break;
+            default:
+                break;
+        }
     };
 
     public render() {
         let p = this.props;
 
-        var dataValue: any;
-        if (this.state && this.state.dataValue) {
-            dataValue = this.state.dataValue;
+        var nameTest: string = '';
+        var contentTest: string = '';
+        if (this.state && this.state.nameTest) {
+            nameTest = this.state.nameTest;
+        }
+        if (this.state && this.state.content) {
+            contentTest = this.state.contentTest;
         }
 
         return (
@@ -293,7 +312,8 @@ export class OrderFilterPanel extends React.PureComponent<
                     </Button>
 
                     <Test
-                        data={dataValue}
+                        nameTest={nameTest}
+                        contentTest={contentTest}
                         className="test"
                         updateStateProp={this.handleChanged}
                     >
