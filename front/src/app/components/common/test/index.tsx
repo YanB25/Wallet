@@ -9,14 +9,11 @@ export interface ITestProps {
 
 export class Test extends React.Component<ITestProps, any> {
     protected testClick = (event: any) => {
-        let o = {
-            nameTest: this.props.nameTest,
-            contentTest: this.props.contentTest,
-        };
-        console.log(o);
-    };
-
-    protected consoleClick = (event: any) => {
+        // let o = {
+        //     nameTest: this.props.nameTest,
+        //     contentTest: this.props.contentTest,
+        // };
+        // console.log(o);
         console.log('ok');
     };
 
@@ -40,7 +37,7 @@ export class Test extends React.Component<ITestProps, any> {
                     onChange={this.props.updateStateProp}
                 />
 
-                <button onClick={this.consoleClick}> Test</button>
+                <button onClick={this.testClick}> Test</button>
             </div>
         );
     }
