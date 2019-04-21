@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export interface ITestProps {
-    data?: string;
+    data?: any;
     className?: string;
     updateStateProp?: any;
 }
@@ -17,9 +17,17 @@ export class Test extends React.Component<ITestProps, any> {
                 <input
                     type="text"
                     className={this.props.className}
-                    value={this.props.data}
+                    value={this.props.data.name}
                     onChange={this.props.updateStateProp}
                 />
+                <span> name</span>
+                <input
+                    type="text"
+                    className={this.props.className}
+                    value={this.props.data.content}
+                    onChange={this.props.updateStateProp}
+                />
+                <span> content</span>
                 <button onClick={this.testClick}> Test</button>
             </div>
         );
