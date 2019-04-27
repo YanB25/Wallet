@@ -5,39 +5,51 @@ import { FormField } from '../form';
 import { Input } from 'app/components/common/input';
 import { IChangeParams } from 'app/components/common/types';
 import { Button } from 'app/components/common/button';
+import { MyProfilesStore } from 'app/stores/my-profiles';
 
 export interface ITestProps {
     nameTest?: string;
     contentTest?: string;
     className?: string;
     updateStateProp?: any;
+    myProfilesStore: MyProfilesStore;
 }
 
 export interface OrderData {
     price: string;
-    other: string;
+    duration: string;
+    ram: string;
+    cpucore: string;
+    gpucnt: string;
 }
 
-export class Test extends React.Component<ITestProps, any> {
+export class PlaceOrderBox extends React.Component<ITestProps, any> {
     constructor(props: any) {
         super(props);
         this.placeOrderData = {
             price: '',
-            other: '',
+            duration: '',
+            ram: '',
+            cpucore: '',
+            gpucnt: '',
         };
+        this.myProfilesStore = props.myProfilesStore;
     }
+
+    protected myProfilesStore: MyProfilesStore;
 
     protected placeOrderData: OrderData;
 
     protected placeOrder = (event: any) => {
         console.log(this.placeOrderData);
+        console.log(this.myProfilesStore.accountList[0].json);
     };
     protected handleChangeInput = (params: IChangeParams<string>) => {
         const key = params.name as keyof OrderData;
         const value: OrderData[keyof OrderData] = params.value;
         console.log(`field ${key} change to ${value}`);
         this.placeOrderData[key] = value;
-        console.log(this.placeOrderData);
+        // console.log(this.placeOrderData);
     };
 
     public render() {
@@ -57,8 +69,26 @@ export class Test extends React.Component<ITestProps, any> {
                         />
 
                         <Input
-                            name="other"
-                            prefix="Other"
+                            name="duration"
+                            prefix="Duration(h)"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="ram"
+                            prefix="Ram"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="cpucore"
+                            prefix="CPU"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="gpucnt"
+                            prefix="GPU"
                             onChange={this.handleChangeInput}
                         />
                     </FormField>

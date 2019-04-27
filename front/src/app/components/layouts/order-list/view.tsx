@@ -3,6 +3,7 @@ import { Map } from 'app/components/common/map';
 // TODO move from common
 import { OrdersListItem } from 'app/components/common/orders-list-item';
 import Axios from 'axios';
+import { PlaceOrderBox } from 'app/components/common/place-order-box';
 // TODO move from common?
 import {
     ListHeader,
@@ -10,6 +11,7 @@ import {
     IPageLimits,
 } from 'app/components/common/list-header';
 import { IOrder } from 'app/api/types';
+import { MyProfilesStore } from '../../../stores/my-profiles';
 
 export interface IOrdersProps extends IOrderable, IPageLimits {
     className?: string;
@@ -18,9 +20,12 @@ export interface IOrdersProps extends IOrderable, IPageLimits {
     isListPending: boolean;
     filterPanel: React.ReactElement<any>;
     onRefresh?: () => void;
+    myProfilesStore: MyProfilesStore;
 }
 
 export class OrderListView extends React.PureComponent<IOrdersProps, any> {
+    protected myProfilesStore: MyProfilesStore;
+
     constructor(prop: IOrdersProps) {
         super(prop);
         this.state = {
@@ -42,6 +47,7 @@ export class OrderListView extends React.PureComponent<IOrdersProps, any> {
         this.getMarkers = this.getMarkers.bind(this);
         // automatically get Markers when this page is loaded.
         this.getMarkers();
+        this.myProfilesStore = prop.myProfilesStore;
     }
 
     getIPs() {
@@ -133,6 +139,9 @@ export class OrderListView extends React.PureComponent<IOrdersProps, any> {
             <div>
                 <button onClick={this.getMarkers}>getMarkers</button>
                 <Map className="map" markers={this.state.markers} />
+
+                <PlaceOrderBox myProfilesStore={this.myProfilesStore} />
+
                 <div className="order-list">
                     <ListHeader
                         className="order-list__header"

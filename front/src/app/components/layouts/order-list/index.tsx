@@ -8,6 +8,7 @@ import {
     withRootStore,
 } from 'app/components/layouts/layout';
 import { observer } from 'mobx-react';
+// import { MyProfilesStore } from 'app/stores/my-profiles';
 
 interface IProps extends IHasRootStore {
     onNavigateToOrder: (orderId: string) => void;
@@ -69,6 +70,7 @@ class OrderListLayout extends Layout<IProps> {
                 onChangeLimit={this.handleChangeLimit}
                 onChangeOrder={this.handleChangeOrder}
                 onRefresh={this.handleRefresh}
+                myProfilesStore={this.rootStore.myProfiles}
                 filterPanel={
                     <OrderFilterPanel
                         onUpdateFilter={this.handleUpdateFilter}
