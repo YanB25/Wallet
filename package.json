@@ -83,6 +83,7 @@
     },
     "dependencies": {
         "antd": "3.1.1",
+        "axios": "^0.18.0",
         "bignumber.js": "git+https://github.com/frozeman/bignumber.js-nolookahead.git",
         "classnames": "2.2.5",
         "crypto-js": "^3.1.9-1",
@@ -99,6 +100,7 @@
         "rc-select": "^7.4.0",
         "react": "^16.4.1",
         "react-addons-transition-group": "^15.6.2",
+        "react-amap": "^1.2.8",
         "react-dom": "^16.1.0",
         "sonm-api": "git+https://github.com/YanB25/blockchain-api-js.git",
         "tcomb": "3.2.27",

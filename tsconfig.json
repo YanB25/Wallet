@@ -3,7 +3,13 @@
         "target": "es2017",
         "module": "commonjs",
         "jsx": "react",
-        "lib": ["es6", "ES2015", "dom", "dom.iterable", "scripthost"],
+        "lib": [
+            "es6",
+            "es2015",
+            "dom",
+            "dom.iterable",
+            "scripthost"
+        ],
         "alwaysStrict": true,
         "strictNullChecks": true,
         "noImplicitAny": true,
@@ -22,8 +28,17 @@
         "moduleResolution": "node",
         "charset": "utf8"
     },
-    "include": ["front/typings/**/*.d.ts", "front/src/**/*.ts", "front/src/**/*.tsx", "node_modules/@types/**/*.d.ts"],
-    "exclude": ["front/dist", "front/bundle", "node_modules/"],
+    "include": [
+        "front/typings/**/*.d.ts",
+        "front/src/**/*.ts",
+        "front/src/**/*.tsx",
+        "node_modules/@types/**/*.d.ts"
+    ],
+    "exclude": [
+        "front/dist",
+        "front/bundle",
+        "node_modules/"
+    ],
     "typeAcquisition": {
         "enable": true
     }

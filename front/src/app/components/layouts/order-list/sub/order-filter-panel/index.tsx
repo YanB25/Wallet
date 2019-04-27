@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as cn from 'classnames';
 import { Checkbox } from 'app/components/common/checkbox';
 import { Input } from 'app/components/common/input';
+import { Test } from 'app/components/common/test';
 import { Button } from 'app/components/common/button';
 import { IOrderFilterPanelProps } from './types';
 import { IOrderFilter } from 'app/stores/order-filter';
@@ -13,10 +14,14 @@ import ToggleGroup from 'app/components/common/toggle-group/index';
 
 export class OrderFilterPanel extends React.PureComponent<
     IOrderFilterPanelProps,
-    never
+    any
 > {
     constructor(props: IOrderFilterPanelProps) {
         super(props);
+        this.state = {
+            nameTest: '',
+            contentTest: '',
+        };
     }
 
     protected handleChangeInput = (params: IChangeParams<boolean | string>) => {
@@ -41,9 +46,25 @@ export class OrderFilterPanel extends React.PureComponent<
                 .filter(Boolean).length > 0
         );
     }
+    protected handleChanged = (event: any) => {
+        switch (event.target.name) {
+            case 'nameTest':
+                this.setState({
+                    nameTest: event.target.value,
+                });
+                break;
+            case 'contentTest':
+                this.setState({
+                    contentTest: event.target.value,
+                });
+                break;
+            default:
+                break;
+        }
+    };
 
     public render() {
-        const p = this.props;
+        let p = this.props;
 
         return (
             <div className={cn('order-filter-panel', p.className)}>
@@ -280,6 +301,15 @@ export class OrderFilterPanel extends React.PureComponent<
                     >
                         RESET FILTERS
                     </Button>
+
+                    <Test
+                        nameTest={this.state.nameTest}
+                        contentTest={this.state.contentTest}
+                        className="test"
+                        updateStateProp={this.handleChanged}
+                    >
+                        {' '}
+                    </Test>
                 </div>
             </div>
         );
