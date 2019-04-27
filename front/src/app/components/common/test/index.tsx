@@ -9,11 +9,11 @@ export interface ITestProps {
 
 export class Test extends React.Component<ITestProps, any> {
     protected testClick = (event: any) => {
-        // let o = {
-        //     nameTest: this.props.nameTest,
-        //     contentTest: this.props.contentTest,
-        // };
-        // console.log(o);
+        let o = {
+            nameTest: this.props.nameTest,
+            contentTest: this.props.contentTest,
+        };
+        console.log(o);
         console.log('ok');
     };
 

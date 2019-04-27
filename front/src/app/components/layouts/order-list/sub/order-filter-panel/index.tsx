@@ -66,15 +66,6 @@ export class OrderFilterPanel extends React.PureComponent<
     public render() {
         let p = this.props;
 
-        var nameTest: string = '';
-        var contentTest: string = '';
-        if (this.state && this.state.nameTest) {
-            nameTest = this.state.nameTest;
-        }
-        if (this.state && this.state.contentTest) {
-            contentTest = this.state.contentTest;
-        }
-
         return (
             <div className={cn('order-filter-panel', p.className)}>
                 {/*<ToggleButtonGroup*/}
@@ -312,8 +303,8 @@ export class OrderFilterPanel extends React.PureComponent<
                     </Button>
 
                     <Test
-                        nameTest={nameTest}
-                        contentTest={contentTest}
+                        nameTest={this.state.nameTest}
+                        contentTest={this.state.contentTest}
                         className="test"
                         updateStateProp={this.handleChanged}
                     >
