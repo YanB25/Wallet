@@ -40,6 +40,8 @@ export class OrderListView extends React.PureComponent<IOrdersProps, any> {
             ],
         };
         this.getMarkers = this.getMarkers.bind(this);
+        // automatically get Markers when this page is loaded.
+        this.getMarkers();
     }
 
     getIPs() {
