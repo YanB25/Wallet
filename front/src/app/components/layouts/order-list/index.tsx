@@ -71,6 +71,7 @@ class OrderListLayout extends Layout<IProps> {
                 onChangeOrder={this.handleChangeOrder}
                 onRefresh={this.handleRefresh}
                 myProfilesStore={this.rootStore.myProfiles}
+                walletStore={this.rootStore.wallet}
                 filterPanel={
                     <OrderFilterPanel
                         onUpdateFilter={this.handleUpdateFilter}
