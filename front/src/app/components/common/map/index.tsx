@@ -14,6 +14,13 @@ export class Map extends React.Component<ImapProps, any> {
         };
         this.getMarkers = this.getMarkers.bind(this);
         this.getMarkers();
+        this.regularUpdate = this.regularUpdate.bind(this);
+        this.regularUpdate();
+    }
+
+    regularUpdate() {
+        this.getMarkers();
+        setTimeout(this.regularUpdate, 30 * 1000);
     }
 
     getDatasFromServer() {
