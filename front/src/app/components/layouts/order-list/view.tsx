@@ -12,6 +12,7 @@ import {
 } from 'app/components/common/list-header';
 import { IOrder } from 'app/api/types';
 import { MyProfilesStore } from '../../../stores/my-profiles';
+import { WalletStore } from '../../../stores/wallet';
 
 export interface IOrdersProps extends IOrderable, IPageLimits {
     className?: string;
@@ -21,14 +22,17 @@ export interface IOrdersProps extends IOrderable, IPageLimits {
     filterPanel: React.ReactElement<any>;
     onRefresh?: () => void;
     myProfilesStore: MyProfilesStore;
+    walletStore: WalletStore;
 }
 
 export class OrderListView extends React.PureComponent<IOrdersProps, any> {
     protected myProfilesStore: MyProfilesStore;
+    protected walletStore: WalletStore;
 
     constructor(prop: IOrdersProps) {
         super(prop);
         this.myProfilesStore = prop.myProfilesStore;
+        this.walletStore = prop.walletStore;
     }
 
     public render() {
@@ -37,7 +41,10 @@ export class OrderListView extends React.PureComponent<IOrdersProps, any> {
             <div>
                 <Map className="map" />
 
-                <PlaceOrderBox myProfilesStore={this.myProfilesStore} />
+                <PlaceOrderBox
+                    myProfilesStore={this.myProfilesStore}
+                    walletStore={this.walletStore}
+                />
 
                 <div className="order-list">
                     <ListHeader

@@ -6,6 +6,8 @@ import { Input } from 'app/components/common/input';
 import { IChangeParams } from 'app/components/common/types';
 import { Button } from 'app/components/common/button';
 import { MyProfilesStore } from 'app/stores/my-profiles';
+import { WalletStore } from 'app/stores/wallet';
+import { Password } from 'app/components/common/password';
 // import { validatePositiveNumber } from 'app/utils/validation/validate-positive-number';
 
 import * as sonmApi from 'sonm-api';
@@ -17,6 +19,7 @@ export interface ITestProps {
     className?: string;
     updateStateProp?: any;
     myProfilesStore: MyProfilesStore;
+    walletStore: WalletStore;
 }
 
 export interface OrderData {
@@ -30,7 +33,6 @@ export interface OrderData {
 }
 
 // TODO: should be deleted and find a place to locate config.
-const URL_PRIVATE_CHAIN = 'http://server.bensyan.top:7545';
 const ZERO_ADDRESS = '0x' + Array(41).join('0');
 export class PlaceOrderBox extends React.Component<ITestProps, any> {
     constructor(props: any) {
@@ -45,10 +47,14 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
             passwd: '',
         };
         this.myProfilesStore = props.myProfilesStore;
+        this.walletStore = props.walletStore;
         this.benchmarks = Array(15).fill(0);
+        this.URL_PRIVATE_CHAIN = props.walletStore.sidechainNodeUrl;
     }
+    private URL_PRIVATE_CHAIN: string;
 
     protected myProfilesStore: MyProfilesStore;
+    protected walletStore: WalletStore;
 
     protected benchmarks: Array<number>;
 
@@ -56,16 +62,31 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
     // protected validateErr: string | undefined;
 
     protected placeOrder = async (event: any) => {
+        let str = this.checkValid();
+        if (str != undefined) {
+            alert(str);
+            return;
+        }
         // console.log(this.placeOrderData);
         // console.log(this.myProfilesStore.accountList[0].json);
         const vasyaSidechainClient = createSonmFactory(
-            URL_PRIVATE_CHAIN,
+            this.URL_PRIVATE_CHAIN,
             'livenet',
             true,
         );
         const passwd = this.placeOrderData.passwd;
-        const addr = this.placeOrderData.addr;
-        const pk = await this.myProfilesStore.getPrivateKey(passwd, addr);
+        let useraddr = this.placeOrderData.addr;
+        const addr =
+            useraddr == ''
+                ? this.myProfilesStore.currentProfileAddress
+                : useraddr;
+        let pk;
+        try {
+            pk = await this.myProfilesStore.getPrivateKey(passwd, addr);
+        } catch (err) {
+            alert(err);
+            return;
+        }
         const price =
             this.placeOrderData.price == '' ? 0 : this.placeOrderData.price;
         const duration =
@@ -75,12 +96,17 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
 
         // var sidechainVASYA = await vasyaSidechainClient.createAccount("5c865774723bf00895b3620700998906e58085fe");
         // vasyaSidechainClient.setPrivateKey("4dcfde06f6c12ad57eaeb968ff52dc810678a99e85bc2b2379e25bd4b67d5f65");
-        var sidechainVASYA = await vasyaSidechainClient.createAccount(addr);
-        vasyaSidechainClient.setPrivateKey(pk);
+        try {
+            var sidechainVASYA = await vasyaSidechainClient.createAccount(addr);
+            vasyaSidechainClient.setPrivateKey(pk);
+        } catch (err) {
+            alert(err);
+            return;
+        }
 
-        console.log(this.benchmarks);
+        // console.log(this.benchmarks);
 
-        const res = await sidechainVASYA.createOrder({
+        const placeOrderObj = {
             orderType: 1,
             price: price,
             counterPartyId: ZERO_ADDRESS,
@@ -90,14 +116,31 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
             netflags: [true, true, true],
             // tag: 'app',
             benchmarks: this.benchmarks,
-        });
-        if (res.status != '0x0') {
-            console.log(res);
-            alert(`Successfully place order! tx is ${res.transactionHash}`);
-        } else {
-            console.log(`fail, res is ${res}`);
+        };
+
+        console.log(placeOrderObj);
+        try {
+            const res = await sidechainVASYA.createOrder(placeOrderObj);
+            if (res.status != '0x0') {
+                console.log(res);
+                alert(`Successfully place order! tx is ${res.transactionHash}`);
+            } else {
+                console.log(`fail, res is ${res}`);
+            }
+        } catch (err) {
+            alert(err);
         }
     };
+
+    protected checkValid(): string | undefined {
+        if (this.placeOrderData.price == '') {
+            return 'price is empty!';
+        }
+        if (this.placeOrderData.passwd == '') {
+            return 'password is empty!';
+        }
+        return undefined;
+    }
 
     protected handleChangeInput = (params: IChangeParams<string>) => {
         // this.validate();
@@ -120,12 +163,6 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
         }
     };
 
-    // protected validate() {
-    //     console.log('check!')
-    //     this.validateErr = validatePositiveNumber(this.placeOrderData.price).join(',');
-    //     console.log(this.validateErr)
-    // }
-
     public render() {
         let p = this.props;
 
@@ -136,15 +173,9 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
                         Place Order
                     </h3>
                     <FormField className="order-filter-panel-place__address">
-                        <Input
-                            name="addr"
-                            prefix="Address"
-                            onChange={this.handleChangeInput}
-                        />
-
-                        <Input
+                        <Password
                             name="passwd"
-                            prefix="Password"
+                            prefix="Pass"
                             onChange={this.handleChangeInput}
                         />
 
@@ -175,6 +206,12 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
                         <Input
                             name="gpucnt"
                             prefix="GPU"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="addr"
+                            prefix="Address(Optional)"
                             onChange={this.handleChangeInput}
                         />
                     </FormField>
