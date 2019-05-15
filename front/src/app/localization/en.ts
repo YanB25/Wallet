@@ -22,11 +22,11 @@ export const en: ILocalizationDictionary = {
     give_me_more: 'Give me SONM tokens!',
 
     required_params_missed: 'Required parameter missed',
-    not_sonm_wallet_file: 'This is not SONM wallet export file',
+    not_sonm_wallet_file: 'This is not Nebulac wallet export file',
     not_erc20_token: 'Token is not ERC20',
     not_smart_contract: 'Address is not a token contract address',
 
-    walletFile_required: 'Select SONM wallet export file',
+    walletFile_required: 'Select Nebulac wallet export file',
     should_be_ether_address: 'Please input correct address',
     should_be_positive_integer: 'Should be positive integer',
     should_be_positive_number: 'Should be positive number',

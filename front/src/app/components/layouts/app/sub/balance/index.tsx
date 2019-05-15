@@ -38,17 +38,19 @@ export class AppBalance extends React.PureComponent<IAppBalanceProps, any> {
                                 className="app-balance__value"
                                 balance={p.snmBalance}
                                 decimalPointOffset={18}
-                                symbol="SNM"
+                                symbol="token"
                                 decimalDigitAmount={2}
                             />
                         </div>
                         <div className="app-balance__row">
-                            <span className="app-balance__label">On SONM:</span>
+                            <span className="app-balance__label">
+                                On Nebulac:
+                            </span>
                             <Balance
                                 className="app-balance__value"
                                 balance={p.marketBalance}
                                 decimalPointOffset={18}
-                                symbol="SNM"
+                                symbol="token"
                                 decimalDigitAmount={2}
                             />
                         </div>

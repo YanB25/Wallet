@@ -51,15 +51,15 @@ export class Disclaimer extends React.PureComponent<IProps, any> {
     public render() {
         return (
             <Dialog className="sonm-disclaimer" color="dark">
-                <h1>Welcome to SONM Wallet</h1>
+                <h1>Welcome to Nebulac Wallet</h1>
                 <p className="sonm-disclaimer__marker">
                     Before you start, please read carefully and understand this
                     information for your safety. Your funds may be stolen if you
                     do not heed these warnings.
                 </p>
                 <p>
-                    The main purpose of the SONM Wallet is the operational work
-                    with the SONM system.
+                    The main purpose of the Nebulac Wallet is the operational
+                    work with the Nebulac system.
                 </p>
                 <p>
                     For your convenience the Wallet is made as a utility tool
