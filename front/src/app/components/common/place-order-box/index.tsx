@@ -13,6 +13,14 @@ import { Password } from 'app/components/common/password';
 import * as sonmApi from 'sonm-api';
 const { createSonmFactory } = sonmApi;
 
+export interface BenchmarkDictType {
+    [name: string]: {
+        // [id: string, ratio: string] : number,
+        // [ratio: string] : number,
+        id: number;
+        ratio: number;
+    };
+}
 export interface ITestProps {
     nameTest?: string;
     contentTest?: string;
@@ -20,6 +28,7 @@ export interface ITestProps {
     updateStateProp?: any;
     myProfilesStore: MyProfilesStore;
     walletStore: WalletStore;
+    benchmarkDict?: BenchmarkDictType;
 }
 
 export interface OrderData {
@@ -50,6 +59,25 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
         this.walletStore = props.walletStore;
         this.benchmarks = Array(15).fill(0);
         this.URL_PRIVATE_CHAIN = props.walletStore.sidechainNodeUrl;
+        this.benchmarkDict = {
+            'cpu-sysbench-multi': { id: 0, ratio: 1 },
+            'cpu-sysbench-single': { id: 1, ratio: 1 },
+            'cpu-cores': { id: 2, ratio: 1 },
+            'ram-size': { id: 3, ratio: 1e6 },
+            'storage-size': { id: 4, ratio: 1e6 },
+            'net-download': { id: 5, ratio: 1e6 },
+            'net-upload': { id: 6, ratio: 1e6 },
+            'gpu-count': { id: 7, ratio: 1 },
+            'gpu-mem': { id: 8, ratio: 1e6 },
+            'gpu-eth-hashrate': { id: 9, ratio: 1 },
+            'gpu-cash-hashrate': { id: 10, ratio: 1 },
+            'gpu-redshift': { id: 11, ratio: 1 },
+            'cpu-cryptonight': { id: 12, ratio: 1 },
+            'gpu-nvidia': { id: 13, ratio: 1 },
+            'gpu-radeon': { id: 14, ratio: 1 },
+            // currently do not include below one
+            // "gpu-cuckaroo29": {id: 15},
+        };
     }
     private URL_PRIVATE_CHAIN: string;
 
@@ -59,6 +87,7 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
     protected benchmarks: Array<number>;
 
     protected placeOrderData: OrderData;
+    protected benchmarkDict: BenchmarkDictType;
     // protected validateErr: string | undefined;
 
     protected placeOrder = async (event: any) => {
@@ -88,7 +117,9 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
             return;
         }
         const price =
-            this.placeOrderData.price == '' ? 0 : this.placeOrderData.price;
+            this.placeOrderData.price == ''
+                ? 0
+                : (parseFloat(this.placeOrderData.price) * 1e18) / 3600;
         const duration =
             this.placeOrderData.duration == ''
                 ? 0
@@ -148,19 +179,25 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
         const key = params.name as keyof OrderData;
         const value: OrderData[keyof OrderData] = params.value;
         console.log(`field ${key} change to ${value}`);
-        this.placeOrderData[key] = value;
-        // console.log(this.placeOrderData);
-        if (value != '') {
-            if (key == 'ram') {
-                this.benchmarks[3] = parseFloat(value);
-            }
-            if (key == 'cpucore') {
-                this.benchmarks[2] = parseFloat(value);
-            }
-            if (key == 'gpucnt') {
-                this.benchmarks[7] = parseFloat(value);
-            }
+        console.log(key);
+        if (key in this.benchmarkDict) {
+            let id: number = this.benchmarkDict[key].id;
+            let ratio: number = this.benchmarkDict[key].ratio;
+            this.benchmarks[id] = parseFloat(value) * ratio;
+            console.log(this.benchmarks);
+        } else {
+            this.placeOrderData[key] = value;
+            console.log(this.placeOrderData);
         }
+        // if (key == 'ram') {
+        //     this.benchmarks[3] = parseFloat(value);
+        // }
+        // if (key == 'cpucore') {
+        //     this.benchmarks[2] = parseFloat(value);
+        // }
+        // if (key == 'gpucnt') {
+        //     this.benchmarks[7] = parseFloat(value);
+        // }
     };
 
     public render() {
@@ -181,7 +218,7 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
 
                         <Input
                             name="price"
-                            prefix="Price"
+                            prefix="Price(USD/h)"
                             onChange={this.handleChangeInput}
                         />
 
@@ -192,22 +229,99 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
                         />
 
                         <Input
-                            name="ram"
-                            prefix="Ram"
+                            name="cpu-sysbench-multi"
+                            prefix="multiple CPU benchmark"
                             onChange={this.handleChangeInput}
                         />
 
                         <Input
-                            name="cpucore"
-                            prefix="CPU"
+                            name="cpu-sysbench-single"
+                            prefix="single CPU benchmark"
                             onChange={this.handleChangeInput}
                         />
 
                         <Input
-                            name="gpucnt"
-                            prefix="GPU"
+                            name="cpu-cores"
+                            prefix="Cores(n)"
                             onChange={this.handleChangeInput}
                         />
+
+                        <Input
+                            name="ram-size"
+                            prefix="Ram(MB)"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="storage-size"
+                            prefix="Storage(MB)"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="net-download"
+                            prefix="download(Mbps)"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="net-upload"
+                            prefix="upload(Mbps)"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="gpu-count"
+                            prefix="GPUs(n)"
+                            onChange={this.handleChangeInput}
+                        />
+                        <Input
+                            name="gpu-mem"
+                            prefix="GPU mem(MB)"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="gpu-eth-hashrate"
+                            prefix="GPU eth(Hz/s)"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="gpu-cash-hashrate"
+                            prefix="GPU cash(sol/s)"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="gpu-redshift"
+                            prefix="GPU Redshift(K/Ex.)"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="cpu-cryptonight"
+                            prefix="CPU Cryptonight"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="gpu-nvidia"
+                            prefix="is Nvidia"
+                            onChange={this.handleChangeInput}
+                        />
+
+                        <Input
+                            name="gpu-radeon"
+                            prefix="GPU Radeon"
+                            onChange={this.handleChangeInput}
+                        />
+                        {/* currently do not include below one */}
+                        {/* <Input 
+                            name="gpu-cuckaroo29"
+                            prefix="GPU Cuckaroo29"
+                            onChange={this.handleChangeInput}
+                            /> */}
 
                         <Input
                             name="addr"
