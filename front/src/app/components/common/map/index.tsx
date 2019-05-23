@@ -10,7 +10,49 @@ export class Map extends React.Component<ImapProps, any> {
     constructor(prop: ImapProps) {
         super(prop);
         this.state = {
-            markers: [],
+            markers: [
+                {
+                    position: {
+                        latitude: 30,
+                        longitude: 100,
+                    },
+                    ip: '44.125.32.12',
+                    times: 8,
+                },
+                {
+                    position: {
+                        latitude: 23,
+                        longitude: 115,
+                    },
+                    ip: '149.22.55.4',
+                    times: 2,
+                },
+                {
+                    position: {
+                        latitude: 24,
+                        longitude: 116,
+                    },
+                    ip: '149.22.51.4',
+                    times: 2,
+                },
+                {
+                    position: {
+                        latitude: 34,
+                        longitude: -118,
+                    },
+                    ip: '42.23.56.45',
+                    times: 10,
+                },
+                {
+                    position: {
+                        latitude: 34,
+                        longitude: -100,
+                    },
+                    ip: '42.23.11.45',
+                    times: 12,
+                },
+            ],
+            serverdatas: [],
         };
         this.getMarkers = this.getMarkers.bind(this);
         this.getMarkers();
@@ -28,7 +70,14 @@ export class Map extends React.Component<ImapProps, any> {
             Axios.get('http://server.bensyan.top:8080/ip').then(res => {
                 if (res.status == 200) {
                     let datas = res.data.data;
-                    resolve(datas);
+                    if (this.equar(datas, this.state.serverdatas)) {
+                        reject('no changed');
+                    } else {
+                        this.setState({
+                            serverdatas: datas,
+                        });
+                        resolve(datas);
+                    }
                 } else {
                     reject('error');
                 }
@@ -95,13 +144,20 @@ export class Map extends React.Component<ImapProps, any> {
     }
 
     getMarkers() {
-        this.getDatasFromServer()
-            .then(res => {
-                this.setMarkers(res);
-            })
-            .catch(rej => {
-                console.log(rej);
-            });
+        return new Promise((res, rej) => {
+            setInterval(() => {
+                res();
+            }, 60000);
+        }).then(res => {
+            this.getDatasFromServer()
+                .then(res => {
+                    this.setMarkers(res);
+                })
+                .catch(rej => {
+                    //  console.log('error');
+                    //  console.log(rej);
+                });
+        });
 
         //   this.setMarkers(["47.96.67.93", "149.248.60.54"]);
     }
@@ -122,6 +178,30 @@ export class Map extends React.Component<ImapProps, any> {
             });
         },
     };
+
+    equar(a: Array<object>, b: Array<object>) {
+        // 判断数组的长度
+        if (a.length !== b.length) {
+            return false;
+        } else {
+            if (a.toLocaleString == b.toLocaleString) {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    componentDidMount() {
+        this.getDatasFromServer()
+            .then(res => {
+                this.setMarkers(res);
+            })
+            .catch(rej => {
+                //  console.log('error');
+                //  console.log(rej);
+            });
+    }
+
     public render() {
         return (
             <div className={this.props.className}>

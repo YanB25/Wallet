@@ -51,15 +51,15 @@ export class Disclaimer extends React.PureComponent<IProps, any> {
     public render() {
         return (
             <Dialog className="sonm-disclaimer" color="dark">
-                <h1>Welcome to SONM Wallet</h1>
+                <h1>Welcome to Nebula Wallet</h1>
                 <p className="sonm-disclaimer__marker">
                     Before you start, please read carefully and understand this
                     information for your safety. Your funds may be stolen if you
                     do not heed these warnings.
                 </p>
                 <p>
-                    The main purpose of the SONM Wallet is the operational work
-                    with the SONM system.
+                    The Nebula is based on SONM system, The main purpose of the
+                    SONM Wallet is the operational work with the SONM system.
                 </p>
                 <p>
                     For your convenience the Wallet is made as a utility tool
@@ -91,13 +91,13 @@ export class Disclaimer extends React.PureComponent<IProps, any> {
                         <b className="sonm-disclaimer__pink">
                             WE STRONGLY RECOMMEND
                         </b>{' '}
-                        you to use the SONM Wallet only for practical work with
-                        SONM system, for practical exercises with Ether and SONM
-                        tokens.
+                        you to use the Nebula Wallet only for practical work
+                        with Nebula system, for practical exercises with Ether
+                        and Nebula tokens.
                     </li>
                     <li>
                         <b className="sonm-disclaimer__pink">DO NOT</b> use the
-                        SONM Wallet to store significant amounts of Ether and
+                        Nebula Wallet to store significant amounts of Ether and
                         tokens. Any working online wallets can potentially be
                         hacked.
                     </li>
@@ -110,7 +110,7 @@ export class Disclaimer extends React.PureComponent<IProps, any> {
                     </li>
                 </ul>
                 <p>
-                    Thank you for reading this text. SONM Team always cares
+                    Thank you for reading this text. Nebula Team always cares
                     about your well-being!
                 </p>
                 <div className="sonm-disclaimer__buttons">

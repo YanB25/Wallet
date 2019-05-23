@@ -5,11 +5,11 @@ const platform = process.env.PLATFORM || 'darwin';
 
 const params = {
     dir: '.',
-    name: 'sonm-wallet',
+    name: 'nebula-wallet',
     platform: platform,
     arch: 'x64',
     out: './releases',
-    appBundleId: 'sonm-wallet',
+    appBundleId: 'nebula-wallet',
     overwrite: true,
     asar: false,
     icon: './front/assets/app-icon',

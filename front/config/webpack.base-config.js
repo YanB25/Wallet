@@ -184,6 +184,7 @@ module.exports = {
                 IS_DEV: JSON.stringify(isDev),
                 VERSION: JSON.stringify(getPackageJson().version),
                 PLATFORM: JSON.stringify(process.env.PLATFORM),
+                NODE_ENV: JSON.stringify(process.env.NODE_ENV),
             }),
         ];
 

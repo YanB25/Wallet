@@ -5,3 +5,4 @@ declare const VERSION: string;
 declare const IS_DEV: string;
 
 declare const PLATFORM: string;
+declare const NODE_ENV: string;

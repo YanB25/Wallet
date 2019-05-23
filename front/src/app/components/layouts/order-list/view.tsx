@@ -42,6 +42,7 @@ export class OrderListView extends React.PureComponent<IOrdersProps, any> {
                 <Map className="map" />
 
                 <PlaceOrderBox
+                    className="placeorder-box"
                     myProfilesStore={this.myProfilesStore}
                     walletStore={this.walletStore}
                 />
