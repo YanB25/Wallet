@@ -67,7 +67,7 @@ export class Map extends React.Component<ImapProps, any> {
 
     getDatasFromServer() {
         return new Promise((resolve, reject) => {
-            Axios.get('http://server.bensyan.top:8080/ip').then(res => {
+            Axios.get('http://server.dds.sysu.tech:8080/ip').then(res => {
                 if (res.status == 200) {
                     let datas = res.data.data;
                     if (this.equar(datas, this.state.serverdatas)) {
