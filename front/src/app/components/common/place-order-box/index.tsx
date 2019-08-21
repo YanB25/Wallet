@@ -119,7 +119,9 @@ export class PlaceOrderBox extends React.Component<ITestProps, any> {
         const price =
             this.placeOrderData.price == ''
                 ? 0
-                : (parseFloat(this.placeOrderData.price) * 1e18) / 3600;
+                : // int the `market.sol`, rate.mul(_price).mul(_period).div(1e18) is the `lockedSum`,
+                  // where rate is 1.
+                  (parseFloat(this.placeOrderData.price) * 1e18) / 3600;
         const duration =
             this.placeOrderData.duration == ''
                 ? 0
