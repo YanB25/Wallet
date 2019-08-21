@@ -1,7 +1,7 @@
 const sonmApi = require('.');
 const vasyaCfg = require('./test/data/supercli.json');
 const { createSonmFactory } = sonmApi;
-const URL_PRIVATE_CHAIN = 'http://server.bensyan.top:7545';
+const URL_PRIVATE_CHAIN = 'http://sidechain.dds.sysu.tech';
 
 const ZERO_ADDRESS = '0x' + Array(41).join('0');
 
